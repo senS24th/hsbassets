@@ -1,12 +1,5 @@
 --!optimize 2
 
-local pcall = pcall
-local xpcall = xpcall
-local game = game
-local task = task
-local getfenv = getfenv
-local setfenv = setfenv
-
 local a, b = {
 	{
 		1,
