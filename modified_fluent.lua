@@ -1,3 +1,12 @@
+--!optimize 2
+
+local pcall = pcall
+local xpcall = xpcall
+local game = game
+local task = task
+local getfenv = getfenv
+local setfenv = setfenv
+
 local a, b = {
 	{
 		1,
@@ -165,7 +174,7 @@ local aa = {
 		z.__namecall = function(A, B, ...)
 			return z[B](...)
 		end
-		for A, B in ipairs(q) do
+		for A, B in (q) do
 			z["Add" .. B.__type] = function(C, D, E)
 				B.Container = C.Container
 				B.Type = C.Type
@@ -245,13 +254,13 @@ local aa = {
 			i.NearIntensity = 1
 			local j = {}
 			function h.Enable()
-				for k, l in pairs(j) do
+				for k, l in (j) do
 					l.Enabled = false
 				end
 				i.Parent = game:GetService("Lighting")
 			end
 			function h.Disable()
-				for k, l in pairs(j) do
+				for k, l in (j) do
 					l.Enabled = l.enabled
 				end
 				i.Parent = nil
@@ -262,11 +271,11 @@ local aa = {
 						j[k] = { enabled = k.Enabled }
 					end
 				end
-				for l, m in pairs(game:GetService("Lighting"):GetChildren()) do
+				for l, m in (game:GetService("Lighting"):GetChildren()) do
 					k(m)
 				end
 				if game:GetService("Workspace").CurrentCamera then
-					for n, o in pairs(game:GetService("Workspace").CurrentCamera:GetChildren()) do
+					for n, o in (game:GetService("Workspace").CurrentCamera:GetChildren()) do
 						k(o)
 					end
 				end
@@ -670,7 +679,7 @@ local aa = {
 				y(1)
 				w(1.1)
 				s.Root.UIStroke:Destroy()
-				task.wait(0.15)
+				task.wait()
 				s.TintFrame:Destroy()
 			end
 			function s.Button(z, A, B)
@@ -679,7 +688,7 @@ local aa = {
 				B = B or function() end
 				local C = e(k.Components.Button)("", s.ButtonHolder, true)
 				C.Title.Text = A
-				for D, E in next, s.ButtonHolder:GetChildren() do
+				for D, E in  s.ButtonHolder:GetChildren() do
 					if E:IsA("TextButton") then
 						E.Size = UDim2.new(1 / s.Buttons, -(((s.Buttons - 1) * 10) / s.Buttons), 0, 32)
 					end
@@ -1190,7 +1199,7 @@ local aa = {
 		function o.SelectTab(p, q)
 			local r = o.Window
 			o.SelectedTab = q
-			for s, t in next, o.Tabs do
+			for s, t in  o.Tabs do
 				t.SetTransparency(1)
 				t.Selected = false
 			end
@@ -1202,7 +1211,7 @@ local aa = {
 				r.ContainerPosMotor:setGoal(l(110, { frequency = 10 }))
 				r.ContainerBackMotor:setGoal(l(1, { frequency = 10 }))
 				task.wait(0.15)
-				for u, v in next, o.Containers do
+				for u, v in  o.Containers do
 					v.Visible = false
 				end
 				o.Containers[q].Visible = true
@@ -1715,7 +1724,7 @@ local aa = {
 					Q.TextWrapped = true
 					P.Root.Size = UDim2.fromOffset(v.Size.X.Offset - 120, Q.TextBounds.Y + 150)
 				end
-				for R, S in next, O.Buttons do
+				for R, S in  O.Buttons do
 					P:Button(S.Title, S.Callback)
 				end
 				P:Open()
@@ -1819,12 +1828,12 @@ local aa = {
 			return i.Dark[m]
 		end
 		function k.UpdateTheme()
-			for m, n in next, k.Registry do
-				for o, p in next, n.Properties do
+			for m, n in  k.Registry do
+				for o, p in  n.Properties do
 					m[o] = k.GetThemeProperty(p)
 				end
 			end
-			for o, p in next, k.TransparencyMotors do
+			for o, p in  k.TransparencyMotors do
 				p:setGoal(j.Instant.new(k.GetThemeProperty("ElementTransparency")))
 			end
 		end
@@ -1841,15 +1850,15 @@ local aa = {
 		end
 		function k.New(m, n, o)
 			local p = Instance.new(m)
-			for q, r in next, k.DefaultProperties[m] or {} do
+			for q, r in  k.DefaultProperties[m] or {} do
 				p[q] = r
 			end
-			for s, t in next, n or {} do
+			for s, t in  n or {} do
 				if s ~= "ThemeTag" then
 					p[s] = t
 				end
 			end
-			for u, v in next, o or {} do
+			for u, v in  o or {} do
 				v.Parent = p
 			end
 			l(p, n)
@@ -1883,7 +1892,7 @@ local aa = {
 	[19] = function()
 		local c, d, e, f, g = b(19)
 		local h = {}
-		for i, j in next, d:GetChildren() do
+		for i, j in  d:GetChildren() do
 			table.insert(h, e(j))
 		end
 		return h
@@ -2242,7 +2251,7 @@ local aa = {
 								E = (ag - ae) / (af - ae)
 								F = 1 - ((aj - ah) / (ai - ah))
 								ac()
-								l:Wait()
+								task.wait()
 							end
 						end
 					end)
@@ -2257,7 +2266,7 @@ local aa = {
 								local ag = math.clamp(n.Y, ae, af)
 								D = ((ag - ae) / (af - ae))
 								ac()
-								l:Wait()
+								task.wait()
 							end
 						end
 					end)
@@ -2270,7 +2279,7 @@ local aa = {
 									local ag = math.clamp(n.Y, ae, af)
 									G = 1 - ((ag - ae) / (af - ae))
 									ac()
-									l:Wait()
+									task.wait()
 								end
 							end
 						end)
@@ -2507,7 +2516,7 @@ local aa = {
 			function l.Display(B)
 				local C, D = l.Values, ""
 				if j.Multi then
-					for E, F in next, C do
+					for E, F in  C do
 						if l.Value[F] then
 							D = D .. F .. ", "
 						end
@@ -2521,7 +2530,7 @@ local aa = {
 			function l.GetActiveValues(B)
 				if j.Multi then
 					local C = {}
-					for D, E in next, l.Value do
+					for D, E in  l.Value do
 						table.insert(C, D)
 					end
 					return C
@@ -2531,13 +2540,13 @@ local aa = {
 			end
 			function l.BuildDropdownList(B)
 				local C, D = l.Values, {}
-				for E, F in next, t:GetChildren() do
+				for E, F in  t:GetChildren() do
 					if not F:IsA("UIListLayout") then
 						F:Destroy()
 					end
 				end
 				local G = 0
-				for H, I in next, C do
+				for H, I in  C do
 					local J = {}
 					G = G + 1
 					local K, L =
@@ -2633,7 +2642,7 @@ local aa = {
 								else
 									N = U
 									l.Value = N and I or nil
-									for V, W in next, D do
+									for V, W in  D do
 										W:UpdateButton()
 									end
 								end
@@ -2649,7 +2658,7 @@ local aa = {
 					D[M] = J
 				end
 				x = 0
-				for J, K in next, D do
+				for J, K in  D do
 					if J.ButtonLabel then
 						if J.ButtonLabel.TextBounds.X > x then
 							x = J.ButtonLabel.TextBounds.X
@@ -2673,7 +2682,7 @@ local aa = {
 			function l.SetValue(B, C)
 				if l.Multi then
 					local D = {}
-					for E, F in next, C do
+					for E, F in  C do
 						if table.find(l.Values, E) then
 							D[E] = true
 						end
@@ -2703,7 +2712,7 @@ local aa = {
 					table.insert(B, C)
 				end
 			elseif type(j.Default) == "table" then
-				for C, D in next, j.Default do
+				for C, D in  j.Default do
 					local E = table.find(l.Values, D)
 					if E then
 						table.insert(B, E)
@@ -2920,7 +2929,7 @@ local aa = {
 				then
 					i = true
 					k.Text = "..."
-					wait(0.2)
+					task.wait()
 					local n
 					n = af.InputBegan:Connect(function(o)
 						local p
@@ -4130,7 +4139,7 @@ local aa = {
 			end
 			e._complete = true
 			e._motors = {}
-			for f, g in pairs(c) do
+			for f, g in (c) do
 				e._motors[f] = aj(g)
 			end
 			return e
@@ -4140,7 +4149,7 @@ local aa = {
 				return true
 			end
 			local e = true
-			for f, g in pairs(c._motors) do
+			for f, g in (c._motors) do
 				local h = g:step(d)
 				if not h then
 					e = false
@@ -4163,7 +4172,7 @@ local aa = {
 			)
 			c._complete = false
 			c._onStart:fire()
-			for e, f in pairs(d) do
+			for e, f in (d) do
 				local g = assert(c._motors[e], ("Unknown motor for key %s"):format(e))
 				g:setGoal(f)
 			end
@@ -4173,7 +4182,7 @@ local aa = {
 		end
 		function ai.getValue(c)
 			local d = {}
-			for e, f in pairs(c._motors) do
+			for e, f in (c._motors) do
 				d[e] = f:getValue()
 			end
 			return d
@@ -4327,7 +4336,7 @@ local aa = {
 		function af.disconnect(ag)
 			if ag.connected then
 				ag.connected = false
-				for ah, ai in pairs(ag.signal._connections) do
+				for ah, ai in (ag.signal._connections) do
 					if ai == ag then
 						table.remove(ag.signal._connections, ah)
 						return
@@ -4341,10 +4350,10 @@ local aa = {
 			return setmetatable({ _connections = {}, _threads = {} }, ag)
 		end
 		function ag.fire(ah, ...)
-			for ai, aj in pairs(ah._connections) do
+			for ai, aj in (ah._connections) do
 				aj._handler(...)
 			end
-			for c, d in pairs(ah._threads) do
+			for c, d in (ah._threads) do
 				coroutine.resume(d, ...)
 			end
 			ah._threads = {}
@@ -4589,7 +4598,7 @@ local aa = {
 	[47] = function()
 		local aa, ab, ac, ad, ae = b(47)
 		local af = { Names = { "Dark", "Darker", "Light", "Aqua", "Amethyst", "Rose" } }
-		for ag, ah in next, ab:GetChildren() do
+		for ag, ah in  ab:GetChildren() do
 			local aj = ac(ah)
 			af[aj.Name] = aj
 		end
@@ -4831,7 +4840,7 @@ do
 		error,
 		newproxy,
 		getmetatable,
-		next,
+		
 		table,
 		unpack,
 		coroutine,
